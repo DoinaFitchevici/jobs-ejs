@@ -3,6 +3,8 @@ require("express-async-errors");
 require("dotenv").config(); // to load the .env file into the process.env object
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
+const passport = require("passport");
+const passportInit = require("./passport/passportInit");
 
 const app = express();
 
@@ -35,9 +37,15 @@ if (app.get("env") === "production") {
 
 app.use(session(sessionParms));
 
+// Passport.js initialization for authentication
+passportInit();
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(require("connect-flash")());
 
 app.use(require("./middleware/storeLocals"));
+
 app.get("/", (req, res) => {
   res.render("index");
 });
