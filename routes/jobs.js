@@ -10,11 +10,11 @@ const {
   deleteJob,
 } = require("../controllers/jobs");
 
-router.get("/jobs", getAllJobs); //display all the product listings belonging to this user
-router.post("/jobs", createJob); //Add a new product listing
-router.get("/jobs/new", newJob); //put up the form to create a new entry
-router.get("/jobs/edit/:id", editJob); //get a particulat entry and show it in the edit box
-router.post("/jobs/update/:id", updateJob); //update a particular entry
-router.post("/jobs/delete/:id", deleteJob); //delete an entry
+router.get("/", getAllJobs); //display all the product listings belonging to this user
+router.post("/", createJob); //Add a new product listing
+router.get("/new", newJob); //put up the form to create a new entry
+router.get("/edit/:id", editJob); //get a particulat entry and show it in the edit box
+router.post("/update/:id", updateJob); //update a particular entry
+router.post("/delete/:id", deleteJob); //delete an entry
 
 module.exports = router;
