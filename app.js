@@ -77,12 +77,6 @@ app.use(session(sessionParms));
 // Flash messaging setup
 app.use(flash());
 
-app.use((req, res, next) => {
-  res.locals.successMessages = req.flash("success");
-  res.locals.errorMessages = req.flash("error");
-  next();
-});
-
 // Passport.js initialization for authentication
 passportInit();
 app.use(passport.initialize());
@@ -112,6 +106,13 @@ const csrf_options = {
 
 const csrf_middleware = csrf(csrf_options); //initialise and return middlware
 app.use(csrf_middleware);
+app.use((req, res, next) => {
+  let token = csrf.token(req, res);
+  res.locals._csrf = token;
+  res.locals.successMessages = req.flash("success");
+  res.locals.errorMessages = req.flash("error");
+  next();
+});
 
 // routes and middleware setup
 
