@@ -114,6 +114,22 @@ app.use((req, res, next) => {
   next();
 });
 
+//for the test
+app.use((req, res, next) => {
+  if (req.path == "/multiply") {
+    res.set("Content-Type", "application/json");
+  } else {
+    res.set("Content-Type", "text/html");
+  }
+  next();
+});
+
+// routes and middleware setup
+
+app.get("/", (req, res) => {
+  res.render("index");
+});
+
 // Endpoint for /multiply
 app.get("/multiply", (req, res) => {
   const result = req.query.first * req.query.second;
@@ -123,12 +139,6 @@ app.get("/multiply", (req, res) => {
     result = "null";
   }
   res.json({ result: result });
-});
-
-// routes and middleware setup
-
-app.get("/", (req, res) => {
-  res.render("index");
 });
 
 app.use("/sessions", require("./routes/sessionRoutes"));

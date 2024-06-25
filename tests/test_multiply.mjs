@@ -1,5 +1,5 @@
-const multiply = require("../util/multiply");
-const expect = require("chai").expect;
+import multiply from "../util/multiply.js";
+import { expect } from "chai";
 
 describe("testing multiply", () => {
   it("should give 7*6 is 42", (done) => {
