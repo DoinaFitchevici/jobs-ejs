@@ -210,7 +210,7 @@
     "puppeteer": "^22.12.0"
   },
   "scripts": {
-    "test": "NODE_OPTIONS=--experimental-vm-modules NODE_ENV=test mocha tests/*.js --exit",
+    "test": "NODE_ENV=test mocha tests/*.js --exit",
     "dev": "nodemon app.js",
     "start": "node app.js"
   },

@@ -114,6 +114,17 @@ app.use((req, res, next) => {
   next();
 });
 
+// Endpoint for /multiply
+app.get("/multiply", (req, res) => {
+  const result = req.query.first * req.query.second;
+  if (result.isNaN) {
+    result = "NaN";
+  } else if (result == null) {
+    result = "null";
+  }
+  res.json({ result: result });
+});
+
 // routes and middleware setup
 
 app.get("/", (req, res) => {
@@ -156,21 +167,37 @@ app.use((err, req, res, next) => {
 });
 
 // Start server
-const port = process.env.PORT || 3000;
 
-const start = async () => {
+const port = process.env.PORT || 3000;
+const start = () => {
   try {
-    let mongoURL = process.env.MONGO_URI;
-    if (process.env.NODE_ENV == "test") {
-      mongoURL = process.env.MONGO_URI_TEST;
-    }
-    await require("./db/connect")(mongoURL);
-    app.listen(port, () =>
+    require("./db/connect")(url);
+    return app.listen(port, () =>
       console.log(`Server is listening on port ${port}...`)
     );
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
 };
 
-start();
+const server = start();
+
+module.exports = { app, server };
+// const port = process.env.PORT || 3000;
+
+// const start = async () => {
+//   try {
+//     let mongoURL = process.env.MONGO_URI;
+//     if (process.env.NODE_ENV == "test") {
+//       mongoURL = process.env.MONGO_URI_TEST;
+//     }
+//     await require("./db/connect")(mongoURL);
+//     app.listen(port, () =>
+//       console.log(`Server is listening on port ${port}...`)
+//     );
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
+
+// start();
