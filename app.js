@@ -133,7 +133,7 @@ app.get("/", (req, res) => {
 // Endpoint for /multiply
 app.get("/multiply", (req, res) => {
   const result = req.query.first * req.query.second;
-  if (result.isNaN) {
+  if (isNaN(result)) {
     result = "NaN";
   } else if (result == null) {
     result = "null";
